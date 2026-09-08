@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Base de datos local (se genera con seed.py, no debe subirse al repo)
+backend/mercado_viva.db
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
