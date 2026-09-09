@@ -1,9 +1,6 @@
 """
 Poblado de datos de ejemplo para el Módulo de Devoluciones Digitales.
 
-Uso (desde la carpeta backend/):
-    python seed.py
-
 Crea (o recrea) las tablas a partir del esquema correspondiente (SQLite o
 Postgres, según DATABASE_URL) y las llena con clientes, productos, compras
 e items de ejemplo, listos para probar el flujo completo de devolución.
