@@ -161,7 +161,7 @@ Frontend (fetch)  →  API Flask (/api/...)  →  Capa de reglas de negocio  →
 
 ## 4. Estructura del proyecto
 
-\```
+```
 mercado-viva-devoluciones/
 ├── backend/
 │   ├── app/
@@ -188,30 +188,30 @@ mercado-viva-devoluciones/
     ├── conftest.py
     ├── test_flujo_exitoso.py
     └── test_caso_excepcional.py
-\```
+```
 
 ## 5. Cómo ejecutarlo localmente
 
-\```bash
-#1. Instalar dependencias
+```bash
+# 1. Instalar dependencias
 cd backend
 pip install -r requirements.txt
 
-#2. Crear y poblar la base de datos con datos de ejemplo
+# 2. Crear y poblar la base de datos con datos de ejemplo
 py seed.py
 
-#3. Levantar el servidor
+# 3. Levantar el servidor
 py run.py
-\```
+```
 
 Abre `http://127.0.0.1:5000/` (portal cliente) o `http://127.0.0.1:5000/tienda` (portal empleado).
 
 ## 6. Cómo correr las pruebas
 
-\```bash
+```bash
 pip install -r backend/requirements.txt
 py -m pytest tests/ -v
-\```
+```
 
 Incluye:
 - **`test_flujo_exitoso.py`**: el camino feliz completo, de la consulta de compras hasta la devolución completada.
