@@ -12,7 +12,7 @@ def test_rechaza_devolucion_fuera_de_la_ventana_permitida(client):
     resp = client.get("/api/clientes/1/compras")
     compras = resp.get_json()["compras"]
     compra_vieja = next(c for c in compras if c["dias_transcurridos"] > 30)
-    item_fuera_de_ventana = compra_vieja["items"][0] 
+    item_fuera_de_ventana = compra_vieja["items"][0]
 
     assert item_fuera_de_ventana["elegible_para_devolucion"] is False
     assert "días" in item_fuera_de_ventana["motivo_no_elegible"]

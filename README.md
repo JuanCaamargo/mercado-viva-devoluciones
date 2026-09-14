@@ -3,6 +3,8 @@
 MVP funcional para el proceso **"Devolución de una compra digital"**, desarrollado
 como parte del taller de Fundamentos de Diseño e Implementación de Software.
 
+Stack: **Flask** (backend) + **PostgreSQL/Supabase** (base de datos, con SQLite como respaldo para desarrollo local) + **HTML/CSS/JS** (frontend), sin frameworks de frontend ni ORM — todo explícito y fácil de leer para fines académicos.
+
 ---
 
 ## 1. Definición
@@ -42,6 +44,11 @@ manuales adicionales.
 - Generar un código de devolución único cuando la solicitud es aprobada.
 - Permitir que un empleado busque ese código, registre el estado físico del producto y complete o rechace la devolución.
 - Dejar trazabilidad de cada intento, incluso los rechazados.
+
+**Lo que NO hace:**
+- No maneja reembolsos ni notas de crédito.
+- No tiene autenticación real de usuarios (se simula ingresando un ID de cliente).
+- No cubre devoluciones de compras hechas en tienda física, solo digitales.
 
 ---
 
@@ -136,7 +143,7 @@ Frontend (fetch)  →  API Flask (/api/...)  →  Capa de reglas de negocio  →
 
 - El **frontend** solo sabe hacer `fetch()` a rutas como `/api/clientes/<id>/compras` o `/api/devoluciones`, y pintar lo que reciba.
 - El **backend** recibe la petición, valida el formato de los datos, aplica las reglas de negocio (en una capa de "servicio" separada de las rutas) y traduce el resultado a un código HTTP y un JSON.
-- La **base de datos** SQLite solo almacena datos; no contiene lógica de negocio para que las reglas queden legibles en un solo lugar del código Python.
+- La **base de datos** solo almacena datos; no contiene lógica de negocio para que las reglas queden legibles en un solo lugar del código Python.
 
 ### Validaciones y posibles errores
 
@@ -148,6 +155,70 @@ Frontend (fetch)  →  API Flask (/api/...)  →  Capa de reglas de negocio  →
 | Producto con una solicitud previa activa | Rechaza con conflicto (409), evitando doble devolución. |
 | Código de devolución inexistente | Devuelve error 404 con mensaje claro, tanto al buscarlo como al revisarlo. |
 | Solicitud ya resuelta y se intenta revisar de nuevo | Rechaza con conflicto (409): no se puede reprocesar. |
-| Falla al conectar con el servidor | El frontend muestra un mensaje de error genérico sin romper la página (manejo de `fetch` con verificación de `resp.ok`). |
+| Falla al conectar con el servidor | El frontend muestra un mensaje de error genérico sin romper la página. |
 
 ---
+
+## 4. Estructura del proyecto
+
+\```
+mercado-viva-devoluciones/
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py            # App factory + rutas que sirven el frontend
+│   │   ├── db.py                  # Conexión (SQLite o Postgres, según DATABASE_URL)
+│   │   ├── errors.py              # Excepciones de dominio → códigos HTTP
+│   │   ├── routes/
+│   │   │   └── devoluciones_routes.py   # Endpoints de la API (/api/...)
+│   │   └── services/
+│   │       └── devoluciones_service.py  # Reglas de negocio del proceso
+│   ├── schema.sql                 # Esquema SQLite (desarrollo local)
+│   ├── schema_postgres.sql        # Esquema Postgres (producción / Supabase)
+│   ├── seed.py                    # Datos de ejemplo
+│   ├── requirements.txt
+│   └── run.py                     # Punto de entrada del servidor
+├── frontend/
+│   ├── cliente.html
+│   ├── tienda.html
+│   ├── css/estilos.css
+│   └── js/
+│       ├── cliente.js
+│       └── tienda.js
+└── tests/
+    ├── conftest.py
+    ├── test_flujo_exitoso.py
+    └── test_caso_excepcional.py
+\```
+
+## 5. Cómo ejecutarlo localmente
+
+\```bash
+#1. Instalar dependencias
+cd backend
+pip install -r requirements.txt
+
+#2. Crear y poblar la base de datos con datos de ejemplo
+py seed.py
+
+#3. Levantar el servidor
+py run.py
+\```
+
+Abre `http://127.0.0.1:5000/` (portal cliente) o `http://127.0.0.1:5000/tienda` (portal empleado).
+
+## 6. Cómo correr las pruebas
+
+\```bash
+pip install -r backend/requirements.txt
+py -m pytest tests/ -v
+\```
+
+Incluye:
+- **`test_flujo_exitoso.py`**: el camino feliz completo, de la consulta de compras hasta la devolución completada.
+- **`test_caso_excepcional.py`**: dos casos excepcionales — compra fuera de la ventana de devolución, y producto no retornable por categoría.
+
+## 7. Supuestos asumidos
+
+- **Ventana de devolución: 30 días** desde la fecha de compra. No estaba especificada en el enunciado; se tomó un valor típico de política de retail, centralizado en una sola constante para poder ajustarlo fácilmente.
+- **Autenticación simulada**: el cliente se identifica escribiendo su ID numérico, en vez de un login real. Se documenta como limitación explícita del MVP.
+- **Categorías no retornables**: se modeló a nivel de producto (`es_retornable`) para que agregar productos nuevos no requiera tocar código.
