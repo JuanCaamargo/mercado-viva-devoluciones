@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mercado VIVA — Devoluciones (Tienda)</title>
+<link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <header class="top">
+    <h1><span class="marca">Mercado VIVA</span> · Verificación en tienda</h1>
+    <nav><a href="/">← Portal cliente</a></nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Consultar código de devolución</h2>
+      <div class="fila">
+        <input type="text" id="codigo" placeholder="Ej: DEV-A1B2C3" style="text-transform:uppercase;">
+        <button id="btn_buscar_codigo">Buscar</button>
+      </div>
+      <div id="mensaje_busqueda"></div>
+    </section>
+
+    <section class="card" id="seccion_detalle" style="display:none;">
+      <h2>2. Detalle de la solicitud</h2>
+      <div id="detalle_solicitud"></div>
+    </section>
+
+    <section class="card" id="seccion_revision" style="display:none;">
+      <h2>3. Verificar producto y completar</h2>
+      <label class="muted">Empleado que atiende</label>
+      <input type="text" id="empleado" placeholder="Tu nombre">
+      <br><br>
+      <label class="muted">Estado físico del producto</label>
+      <select id="condicion_producto">
+        <option value="buen_estado">Buen estado (cumple condiciones)</option>
+        <option value="dañado">Dañado</option>
+        <option value="incompleto">Incompleto (faltan piezas/empaque)</option>
+      </select>
+      <br><br>
+      <label class="muted">Comentario (opcional)</label>
+      <textarea id="comentario" placeholder="Observaciones de la revisión..."></textarea>
+      <br><br>
+      <button id="btn_registrar_revision">Registrar y completar</button>
+      <div id="mensaje_revision"></div>
+    </section>
+  </main>
+
+  <script src="/js/tienda.js"></script>
+</body>
+</html>

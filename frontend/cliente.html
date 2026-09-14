@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mercado VIVA — Devoluciones (Cliente)</title>
+<link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <header class="top">
+    <h1><span class="marca">Mercado VIVA</span> · Portal de devoluciones</h1>
+    <nav><a href="/tienda">Soy empleado de tienda →</a></nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Ingresa tu número de cliente</h2>
+      <div class="fila">
+        <input type="number" id="cliente_id" placeholder="Ej: 1" value="1">
+        <button id="btn_buscar_compras">Ver mis compras</button>
+      </div>
+      <div id="mensaje_compras"></div>
+    </section>
+
+    <section class="card" id="seccion_compras" style="display:none;">
+      <h2>2. Selecciona el producto a devolver</h2>
+      <div id="mensaje_accion"></div>
+      <div id="lista_compras"></div>
+    </section>
+
+    <section class="card" id="seccion_solicitudes" style="display:none;">
+      <h2>Mis solicitudes de devolución</h2>
+      <div id="lista_solicitudes"></div>
+    </section>
+  </main>
+
+  <script src="/js/cliente.js"></script>
+</body>
+</html>

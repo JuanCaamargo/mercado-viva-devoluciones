@@ -1,0 +1,179 @@
+:root {
+  --navy: #2f3c7e;
+  --navy-dark: #232d5e;
+  --coral: #f96167;
+  --gold: #f9e795;
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --border: #e3e6f0;
+  --text: #27293d;
+  --muted: #6b6f8c;
+  --ok: #1e8e5a;
+  --ok-bg: #d9f2e3;
+  --error: #c0392b;
+  --error-bg: #fadbdd;
+  --warn-bg: #fcf0c6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header.top {
+  background: var(--navy);
+  color: white;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+header.top h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+header.top .marca {
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+header.top nav a {
+  color: #cadcfc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.fila {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+input[type="text"], input[type="number"], select, textarea {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+textarea { resize: vertical; min-height: 3.2rem; }
+
+button {
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+button:hover { background: var(--navy-dark); }
+
+button.secundario {
+  background: var(--coral);
+}
+
+button:disabled {
+  background: #b7bad0;
+  cursor: not-allowed;
+}
+
+.compra {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.compra:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
+.item-linea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  gap: 0.75rem;
+}
+
+.item-info { flex: 1; }
+
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+}
+
+.badge.elegible { background: var(--ok-bg); color: var(--ok); }
+.badge.no-elegible { background: var(--error-bg); color: var(--error); }
+
+.mensaje {
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+}
+
+.mensaje.exito { background: var(--ok-bg); color: var(--ok); }
+.mensaje.error { background: var(--error-bg); color: var(--error); }
+.mensaje.info { background: var(--warn-bg); color: #7a5b00; }
+
+.codigo {
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+
+.muted { color: var(--muted); font-size: 0.85rem; }
+
+.solicitud-linea {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.solicitud-linea:first-child { border-top: none; }
+
+.estado-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+.estado-tag.completada { background: var(--ok-bg); color: var(--ok); }
+.estado-tag.aprobada_automatica { background: var(--warn-bg); color: #7a5b00; }
+.estado-tag.rechazada_automatica, .estado-tag.rechazada_tienda { background: var(--error-bg); color: var(--error); }
