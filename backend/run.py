@@ -5,11 +5,14 @@ Uso local:
     python run.py
 
 En producción (Render, Railway, etc.), el propio hosting ejecuta la
-aplicación con un servidor WSGI (gunicorn) apuntando a "run:app",
-así que el bloque de abajo solo se usa en desarrollo local.
+aplicación con un servidor WSGI (gunicorn) apuntando a "run:app".
 """
 
 import os
+
+from dotenv import load_dotenv
+
+load_dotenv()  # carga backend/.env si existe (solo en desarrollo local)
 
 from app import create_app
 

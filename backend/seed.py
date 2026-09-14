@@ -8,6 +8,10 @@ e items de ejemplo, listos para probar el flujo completo de devolución.
 
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
+
+load_dotenv()  # carga backend/.env si existe (solo en desarrollo local)
+
 from app.db import get_connection, USE_POSTGRES, SCHEMA_SQLITE_PATH, SCHEMA_POSTGRES_PATH
 
 
@@ -31,12 +35,12 @@ def main():
         )
 
     # --- Productos (algunos retornables, otros no por categoría) ---
-    productos = [
-        ("Licuadora Vivax 600W", "electrodomésticos", 189000, 1),
-        ("Audífonos inalámbricos SonoPlus", "tecnología", 129000, 1),
-        ("Leche entera x 1L", "perecederos", 4200, 0),   # no retornable
-        ("Set de sartenes antiadherentes", "hogar", 156000, 1),
-        ("Aguacate Hass x kg", "perecederos", 6800, 0),  # no retornable
+        productos = [
+        ("Licuadora Vivax 600W", "electrodomésticos", 189000, True),
+        ("Audífonos inalámbricos SonoPlus", "tecnología", 129000, True),
+        ("Leche entera x 1L", "perecederos", 4200, False),   # no retornable
+        ("Set de sartenes antiadherentes", "hogar", 156000, True),
+        ("Aguacate Hass x kg", "perecederos", 6800, False),  # no retornable
     ]
     for nombre, categoria, precio, retornable in productos:
         conn.execute(
